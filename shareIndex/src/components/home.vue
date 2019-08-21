@@ -26,7 +26,9 @@
             </div>
             <!-- 广播 -->
             <div class="noticeList">
-                <div class="notice" v-if="noticeList && noticeList.length">{{noticeList[0].content}}</div>
+                <div class="notice" v-if="noticeList && noticeList.length">
+                    <p>{{noticeList[0].content}}</p>
+                </div>
             </div>
 
             <div class="liuhe_nav" v-if="moduleType == 1" @click="jumptocommon">
@@ -51,7 +53,10 @@
             </div>
 
             <div class="title" v-if="moduleType != 1">
-                {{ '第' + periods + '期' + ':' +title}}
+                <span v-if="periods">
+                    {{ '第' + periods + '期' + ':'}}
+                </span>
+                {{title}}
             </div>
 
             <div class="rule" v-if="moduleType == 2">公式規律持續計算中，如本期公式結果未出，請回頭再看</div>
@@ -558,25 +563,29 @@ body {
                 color: white;
                 line-height: 0.64rem;
                 text-align: center;
-                font-size: 0.2rem;
+                font-size: 0.3rem;
                 margin-top: 0.1rem;
             }
         }
 
         .noticeList {
             margin-top: 1.3rem;
-            background: #ffffff;
+            background: url("../images/notice.png") 0.2rem center no-repeat;
+            background-size: 0.4rem 0.4rem;
+            background-color: #ffffff;
+            padding-left: 0.7rem;
 
             .notice {
-                font-size: 0.14rem;
-                margin-bottom: 0.05rem;
                 line-height: 0.5rem;
-                background: url("../images/notice.png") 0.2rem center no-repeat;
-                background-size: 0.4rem 0.4rem;
-                padding-left: 0.7rem;
-                overflow: hidden; //超出的文本隐藏
-                text-overflow: ellipsis; //溢出用省略号显示
-                white-space: nowrap; //溢出不换
+                font-size: 0.25rem;
+                margin-bottom: 0.05rem;
+                overflow: hidden;
+
+                p{
+                    white-space: nowrap; //溢出不换
+                    width: max-content;
+                    animation: 16s linear 0s infinite normal none running noticeStr;
+                }
             }
         }
 
@@ -722,6 +731,10 @@ body {
                 white-space: pre-line;
                 font-size: 0.32rem;
                 color: #4a4a4a;
+
+                span,p{
+                    font-size: .3rem !important;
+                }
             }
         }
         .contentimg {
@@ -939,6 +952,14 @@ body {
                 }
             }
         }
+    }
+}
+@keyframes noticeStr {
+    0% {
+        transform: translate3d(100%, 0, 0);
+    }
+    100% {
+        transform: translate3d(-100%, 0, 0);
     }
 }
 </style>
