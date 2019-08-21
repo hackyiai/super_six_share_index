@@ -21,7 +21,7 @@ export default {
         Home,
         Home2
     },
-    mounted() {
+    beforeMount() {
         //判断访问终端
         var u = navigator.userAgent;
         if (u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
@@ -29,7 +29,7 @@ export default {
         } else if (u.indexOf("Android") > -1 || u.indexOf("Adr") > -1) {
             this.phoneType = "android";
         }
-        if(u.indexOf('MicroMessenger') > -1 || u.match(/\sQQ/i) == " qq"){
+        if(u.indexOf('MicroMessenger') > -1 || u.indexOf('QQ') > -1){
             this.isQQAndWx = true;
         }
     }

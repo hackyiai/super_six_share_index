@@ -26,7 +26,7 @@
             </div>
             <!-- 广播 -->
             <div class="noticeList">
-                <div class="notice" v-if="noticeList && noticeList.length">{{noticeList[0]}}</div>
+                <div class="notice" v-if="noticeList && noticeList.length">{{noticeList[0].content}}</div>
             </div>
 
             <div class="liuhe_nav" v-if="moduleType == 1" @click="jumptocommon">
@@ -263,25 +263,38 @@ export default {
                 min: this.placeholder(myDate.getMinutes(), 2),
                 sec: this.placeholder(myDate.getSeconds(), 2)
             }
+        },
+        parseQueryString(url) {
+            var obj = {};
+            var keyvalue = [];
+            var key = "",
+                value = "";
+            var paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
+            for (var i in paraString) {
+                keyvalue = paraString[i].split("=");
+                key = keyvalue[0];
+                value = keyvalue[1];
+                obj[key] = value;
+            }
+            return obj;
         }
     },
     mounted() {
         this.copyBtn = new this.clipboard(this.$refs.copy);
 
-        var data = location.href.split("?")[1].split("&");
-        var str = data[0].split("=")[1];
+        var obj = this.parseQueryString(location.href);
+
+        var str = obj.params;
         var uri = "http://api.lhbbapp.com/posts/getPostsDetails";
-        var plate = '';
-        if (data.length == 3) {
-            var devModel = data[1].split("=")[1];
+        if (obj.devModel) {
+            var devModel = obj.devModel;
             //根据devModel = 1 调用测试环境的接口
             if (devModel && devModel == 1) {
                 uri = "http://app.lhbbapp.com:8080/posts/getPostsDetails";
             }
-            plate = data[2].split("=")[1];
-        }else{
-            plate = data[3].split("=")[1];
         }
+        var plate = obj.plate;
+        
         switch (plate) {
             case "capture": // 高手論壇列表
             case "exchange": // 精料轉帖列表
