@@ -336,19 +336,20 @@ export default {
                 this.createTime = myDate.year + '-' + myDate.month + '-' + myDate.date + '  ' + myDate.hours + ':' + myDate.min;
                 this.datalist.posts.browsePoint && (this.browsePoint = this.datalist.posts.browsePoint);
                 this.postcontent = this.datalist.posts.content;
-                this.replypoint = this.datalist.posts.replyPoint;
                 this.noticeList = this.datalist.noticeList;
+                this.datalist.posts.nicePoint = 12456;
                 if (this.datalist.posts.nicePoint > 10000) {
                     this.nicepoint =
-                        this.datalist.posts.nicePoint / 10000 + "万";
-                } else if (
-                    this.datalist.posts.nicePoint > 1000 &&
-                    this.datalist.posts.nicePoint < 10000
-                ) {
-                    this.nicepoint =
-                        this.datalist.posts.nicePoint / 1000 + "千";
+                        (this.datalist.posts.nicePoint / 10000).toFixed(1) + "万";
                 } else {
-                    this.nicepoint = this.datalist.posts.nicePoint;
+                    this.nicepoint = this.datalist.posts.nicePoint || '';
+                }
+                this.datalist.posts.replyPoint = 123456;
+                if (this.datalist.posts.replyPoint > 10000) {
+                    this.replypoint =
+                        (this.datalist.posts.replyPoint / 10000).toFixed(1) + "万";
+                } else {
+                    this.replypoint = this.datalist.posts.replyPoint || '';
                 }
                 this.newimglist =
                     (this.datalist.posts.img &&
@@ -924,7 +925,10 @@ body {
                         position: relative;
                         span {
                             position: absolute;
-                            top: -0.1rem;
+                            top: -0.25rem;
+                            left: .3rem;
+                            font-size: .22rem;
+                            color: #666;
                         }
                     }
                     .footercomment {
@@ -932,7 +936,10 @@ body {
                         position: relative;
                         span {
                             position: absolute;
-                            top: -0.1rem;
+                            top: -0.25rem;
+                            left: .3rem;
+                            font-size: .22rem;
+                            color: #666;
                         }
                     }
                     .singetubiao {
