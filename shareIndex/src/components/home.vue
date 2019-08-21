@@ -295,7 +295,7 @@ export default {
             var devModel = obj.devModel;
             //根据devModel = 1 调用测试环境的接口
             if (devModel && devModel == 1) {
-                uri = "http://app.lhbbapp.com:8080/posts/getPostsDetails";
+                uri = "http://app1.lhbbapp.com:7001/posts/getPostsDetails";
             }
         }
         var plate = obj.plate;
